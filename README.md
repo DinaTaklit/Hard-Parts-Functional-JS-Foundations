@@ -41,3 +41,7 @@ But how could we do it!?
 next line of code (‘function call’) and not to any other lines
 
 **Recombine/compose** Build up our application by using these small blocks of self-contained code combining them up line-by-line by referring to their human-readable name
+
+## Credits
+
+All credits goes for will sentance course "Hard Parts: Functional JS Foundations" in front end master
