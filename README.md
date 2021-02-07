@@ -2,9 +2,9 @@
 
 Functional programming - a paradigm for structuring our complex code
 
-## 1. Intro
+## 0. Intro
 
-### 1.1 Functional programming::Intro
+### 0.1 Functional programming::Intro
 
 **Let’s suppose we have a quiz game we’re building**
 Every line of code either saves data to memory (e.g. a user’s score) or uses that data (e.g. increase that user’s score)
@@ -44,7 +44,7 @@ next line of code (‘function call’) and not to any other lines
 
 **Recombine/compose** Build up our application by using these small blocks of self-contained code combining them up line-by-line by referring to their human-readable name
 
-### 1.2 Functional Programming Benefits & Concepts
+### 0.2 Functional Programming Benefits & Concepts
 
 #### We could produce a beautiful "to do list" of our code
 
@@ -99,6 +99,52 @@ We will need ways to:
 Functions become reusable, versatile, flexible piece of code - a series of independent self-contained readable and predictable steps passing data from one to the next
 
 But it all starts with us being confident with the core principles of JavaScript
+
+## 1.Principles of JavaScript
+
+### What happens when javascript executes (runs) my code?
+
+```javascript
+const num = 3;
+const multiplyBy2 = (inputNumber) => {
+ const result = inputNumber*2;
+ return result;
+}
+const name = "Will"
+```
+
+Code is saved (defined) in functions - to be run later
+As soon as we start running our code, we create a **global execution context**
+
+- Thread of execution (parsing and executing the code line after line)
+- Live memory of variables with data (known as a Global Variable Environment)
+
+### Running/calling/invoking a function
+
+This is not the same as defining a function
+
+```javascript
+const num = 3;
+const multiplyBy2 = (inputNumber) => {
+ const result = inputNumber*2;
+ return result;
+}
+const output = multiplyBy2(num);
+const newOutput = multiplyBy2(10);
+```
+
+When we execute a function it creates a **new execution context** comprising:
+
+1. The thread of execution (we go through the code in the function line by line)
+2. A local memory ("Variable environment") where anything defined in the function is stored
+
+### We keep track of the functions being called in JavaScript with a Call stack
+
+- Tracks which execution context we are in - that is, what function is currently being run and where to return to
+after an execution context is popped off the stack
+
+- One global execution context, multiple function
+contexts
 
 ## Credits
 
