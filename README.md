@@ -348,6 +348,22 @@ const result = copyArrayAndManipulate([1, 2, 3], input => input*2);
 //No multiplyBy2 function independently declared/saved
 ```
 
+## 4. Map & Reduce, filter and chaining higher order functions
+
+### Map: Developers tend to call copyArrayAndManipulate, map
+
+```javascript
+const map = (array, instructions) => {
+ const output = [];
+ for (let i = 0; i < array.length; i++) {
+ output.push(instructions(array[i]));
+ }
+ return output;
+}
+const multiplyBy2 = input => input*2
+const result = map([1, 2, 3], multiplyBy2); 
+```
+
 ## Credits
 
 All credits goes for will sentance course "Hard Parts: Functional JS Foundations" in front end master
