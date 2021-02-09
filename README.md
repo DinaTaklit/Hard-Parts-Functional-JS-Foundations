@@ -489,6 +489,94 @@ functions
 - **More readable** - `array.filter(greaterThan2).reduce(add,0)` - more readable than individual steps with explicit loop
 - **Easier to debug** - As long as we understand what’s happening under-the-hood And reduce is going to enable something even more powerful
 
+## 5. Function composition
+
+- Chaining with dots relies on JavaScript prototype feature - functions return arrays which have access to all the HOFs (map, filter, reduce)
+- I’m passing my output into the next function automatically
+- What if I want to chain functions that just return a regular output
+- e.g. multiplyBy2, add3, divideBy5
+
+### We could keep track with global variables
+
+```javascript
+const multiplyBy2 = x => x*2
+const add3 = x => x+3
+const divideBy5 = x => x/5
+const initialResult = multiplyBy2(11)
+const nextStep = add3(initialResult)
+const finalStep = divideBy5(nextStep)
+console.log("finalStep", finalStep)
+```
+
+But that’s risky, people can overwrite
+
+### Or we can use the fact that JavaScript evaluates every function call before it moves on
+
+```javascript
+const multiplyBy2 = x => x*2
+const add3 = x => x+3
+const divideBy5 = x => x/5
+const result = divideBy5(add3(multiplyBy2(11)))
+```
+
+Now this is pretty unreadable though
+
+> (Btw This relies on our functions being "referentially transparent" - we can replace the call to
+the function with its return value with no consequences on our app)
+
+### We’re combining a function with a value to get a result then combining that result with another function to get another result and so on
+
+What’s this remind you of? => Reduce
+
+### Reduce as the most versatile function in programming
+
+```javascript
+const multiplyBy2 = x => x*2
+const add3 = x => x+3
+const divideBy5 = x => x/5
+const reduce = (array, howToCombine, buildingUp) => {
+ for (let i = 0; i < array.length; i++){
+ buildingUp = howToCombine(buildingUp, array[i])
+ }
+ return buildingUp
+}
+const runFunctionOnInput = (input,fn) => {
+ return fn(input)
+}
+const output = reduce([multiplyBy2, add3, divideBy5], runFunctionOnInput, 11)
+```
+
+### Listing out our ‘lines of code’ (functions) by name with each one’s consequence limited to only affect the next ‘line’ (function call/invocation)
+
+```javascript
+const multiplyBy2 = x => x*2
+const add3 = x => x+3
+const divideBy5 = x => x/5
+const subtract4 = x => x-4
+const reduce = (array, howToCombine, buildingUp) => {
+ for (let i = 0; i < array.length; i++){
+ buildingUp = howToCombine(buildingUp, array[i])
+ }
+ return buildingUp
+}
+const runFunctionOnInput = (input,fn) => { return fn(input) }
+const output = reduce([
+ multiplyBy2,
+ add3,
+ divideBy5,
+ subtract4
+ ],
+ runFunctionOnInput, 11
+)
+```
+
+### Function composition
+
+- Easier to add features - This is the essential aspect of functional javascript - being able to list of our units of code by name and have them run one by one as independent, self-contained pieces
+- More readable - reduce here is often wrapped in compose to say ‘combine up’ the functions to run our
+data through them one by one. The style is ‘point free’
+- Easier to debug - I know exactly the line of code my bug is in - it’s got a label!
+
 ## Credits
 
 All credits goes for will sentance course "Hard Parts: Functional JS Foundations" in front end master
