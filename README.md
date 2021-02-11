@@ -777,6 +777,46 @@ oncifiedMultiplyBy2(7) // Sorry
 that behave similar but with bonus features!
 - Easier to debug - Definitely need to know how it’s working under the hood!
 
+## 9. Partial application and currying
+
+### Function composition is powerful but every function needs to behave the same way
+
+- Taking in one input and returning out one output
+- What if I have a function I want to use that expects two inputs This is "arity mismatch" (arity is the inputs of a function)
+- We need to "decorate" our function to prefill one of its inputs
+
+This means creating a new function that calls our multiargument function - with the argument and the multi-argument
+function stored conveniently in the backpack
+
+### It’s known as "Partial application"
+
+```javascirpt
+const multiply = (a, b) => a * b
+function prefillFunction (fn, prefilledValue){
+ const inner = (liveInput) => {
+ const output = fn(liveInput, prefilledValue)
+ return output
+ }
+ return inner
+}
+const multiplyBy2 = prefillFunction(multiply, 2)
+const result = multiplyBy2(5)
+```
+
+### Partial application and currying
+
+- In practice we may have to prefill one, two... multiple arguments at different times
+- We can convert (‘decorate’) any function to a function that will accept arguments one by one and only run the function in full once it has all the arguments
+- This is a more general version of partial application
+
+### Partial application & currying
+
+- Easier to add features - Mismatched arity - no problem! We write a function multiply once and then
+reuse it for different situations by ‘editing’ its arguments
+- More readable - We can use our composition/reduce to list out functions to run one-by-one on our data, even if
+the functions excepted more than 1 input!
+- Easier to debug - Individual units of functionality possible even with 1+ input expected
+
 ## Credits
 
 All credits goes for will sentance course "Hard Parts: Functional JS Foundations" in front end master
