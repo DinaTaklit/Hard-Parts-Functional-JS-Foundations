@@ -744,6 +744,39 @@ This "backpack" of live data that gets returned out with incrementCounter is kno
 - Easier to add features - Our functions can now have persistent permanent memories attached to them - it’s going to let us build dramatically more powerful functions
 - Easier to debug - Definitely need to know how it’s working under the hood!
 
+## 8. Functional Decoration
+
+- Now we can convert functions more easily to make them suit our task
+- Without writing a new function from scratch
+- We can run code on other bits of code to appear to change them
+
+### To add a permanent memory to an existing function we have to create a new function that will run the existing function inside of itself
+
+```javascript
+const oncify = (convertMe) => {
+ let counter = 0
+ const inner = (input) => {
+ if (counter === 0){
+ const output = convertMe(input)
+ counter++
+ return output
+ }
+ return "Sorry"
+ }
+ return inner
+}
+const multiplyBy2 = num => num*2
+const oncifiedMultiplyBy2 = oncify(multiplyBy2)
+oncifiedMultiplyBy2(10) // 20
+oncifiedMultiplyBy2(7) // Sorry
+```
+
+### Function decoration
+
+- Easier to add features - We can "pseudo" edit our functions that we’ve already made - into functions
+that behave similar but with bonus features!
+- Easier to debug - Definitely need to know how it’s working under the hood!
+
 ## Credits
 
 All credits goes for will sentance course "Hard Parts: Functional JS Foundations" in front end master
