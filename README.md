@@ -817,6 +817,35 @@ reuse it for different situations by ‘editing’ its arguments
 the functions excepted more than 1 input!
 - Easier to debug - Individual units of functionality possible even with 1+ input expected
 
+## Recap Functional programming
+
+- Every line of code is named (or if not, its so short we can see exactly what it does), is an independent unit that
+has all of its consequences in that single line
+
+- We can then couple up (compose) these single units of code/instructions (functions) up into complex tasks
+
+- But with every component of the task independent, recognizable, reusable, versatile and easily debuggable!
+
+### We have to do some feats to wrestle our tiny units of code (functions)
+
+- Combining up functions with multiple inputs from libraries
+- We’ve seen many of them (higher order functions, reduction/composition, closure, function decoration, partial application and currying). And there are even more - monads, applicators et al!
+
+### Readable, debuggable and easy to add features
+
+```javascript
+pipe(
+ getPlayerName,
+ getFirstName,
+ properCase,
+ addUserLabel,
+ createUserTemplate
+)([{name: 'will sentance', score: 3}]);
+```
+
+But our code is now a set of independent, self contained steps we can wield to solve any problem and become
+true composers of our code.
+
 ## Credits
 
 All credits goes for will sentance course "Hard Parts: Functional JS Foundations" in front end master
